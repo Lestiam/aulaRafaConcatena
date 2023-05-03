@@ -25,24 +25,21 @@ public class ManipuladorArquivo {
         buffWrite.close();
     }
 
-    public static void Sobrescrever(String path) throws IOException {
-        BufferedReader buffRead = new BufferedReader(new FileReader(path));
-        String linha1 = "";
-        String linha2 = "";
-        while (true) {
-            if (linha1 != null) {
-                System.out.println(linha1);
-            } else
-                break;
-            linha1 = buffRead.readLine();
+    public static void Sobrescrever(String path, String path2, String path3) throws IOException {
+
+        BufferedReader brNome = new BufferedReader(new FileReader(path));
+        BufferedReader brSobrenome = new BufferedReader(new FileReader(path2));
+        BufferedWriter brNomeSobrenome = new BufferedWriter(new FileWriter(path3));
+
+        String linhaNome, linhaSobrenome;
+
+        while ((linhaNome = brNome.readLine()) != null && (linhaSobrenome = brSobrenome.readLine()) != null) {
+            brNomeSobrenome.write(linhaNome + " " + linhaSobrenome + "\n");
         }
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path));
-        //String linha = " ";
-        Scanner in = new Scanner(System.in);
-        System.out.println("Nomes: ");
-        //linha1 = in.nextLine();
-        //linha2 = in.nextLine();
-        buffWrite.append(linha1 + " " + linha2 + "\n");
-        buffWrite.close();
+        brNome.close();
+        brSobrenome.close();
+        brNomeSobrenome.close();
+
+        System.out.println("\nNomes completos foram gravados em: " + path3);
     }
 }
